@@ -1,3 +1,8 @@
+function toggleChat() {
+  const chatbox = document.getElementById("chatbox");
+  chatbox.style.display = chatbox.style.display === "none" ? "flex" : "none";
+}
+
 async function sendChat() {
   const input = document.getElementById("userInput").value;
   const res = await fetch("/chat", {
@@ -6,5 +11,18 @@ async function sendChat() {
     body: JSON.stringify({ message: input }),
   });
   const data = await res.json();
-  document.getElementById("responseArea").innerText = "챗봇: " + data.reply;
+  const responseArea = document.getElementById("responseArea");
+  responseArea.innerHTML += `<div>😎 ${input}</div><div>🤖 ${data.reply}</div><br>`;
+  document.getElementById("userInput").value = "";
+  responseArea.scrollTop = responseArea.scrollHeight;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      sendChat();
+    }
+  });
+});
