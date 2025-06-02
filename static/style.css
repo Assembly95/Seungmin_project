@@ -1,7 +1,6 @@
 #chatbox {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 위 아래 분산 */
   position: fixed;
   bottom: 80px;
   right: 20px;
@@ -9,46 +8,28 @@
   height: 500px;
   border: 1px solid #ccc;
   background: white;
-  z-index: 1000;
+  border-radius: 10px;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
 }
 
 #chatLog {
-  flex: 1; /* 위쪽 공간 모두 차지 */
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-}
-
-.user-bubble {
-  background-color: #dcf8c6;
-  padding: 10px;
-  margin: 5px;
-  border-radius: 10px;
-  align-self: flex-end;
-  max-width: 80%;
-  text-align: right;
-}
-
-.bot-bubble {
-  background-color: #f1f0f0;
-  padding: 10px;
-  margin: 5px;
-  border-radius: 10px;
-  align-self: flex-start;
-  max-width: 80%;
-  text-align: left;
+  gap: 5px;
 }
 
 #chatInputArea {
   display: flex;
   gap: 10px;
+  margin-top: 10px;
 }
 
 #chatInputArea input {
-  flex: 1; /* 나머지 공간 전부 차지 */
+  flex: 1;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -80,4 +61,22 @@
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   z-index: 999;
+}
+
+.user-bubble {
+  background-color: #dcf8c6;
+  padding: 10px;
+  border-radius: 10px;
+  align-self: flex-end;
+  max-width: 80%;
+  text-align: right;
+}
+
+.bot-bubble {
+  background-color: #f1f0f0;
+  padding: 10px;
+  border-radius: 10px;
+  align-self: flex-start;
+  max-width: 80%;
+  text-align: left;
 }
