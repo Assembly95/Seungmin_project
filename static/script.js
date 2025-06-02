@@ -1,28 +1,37 @@
 function toggleChat() {
-  const chatbox = document.getElementById("chatbox");
-  chatbox.style.display = chatbox.style.display === "none" ? "flex" : "none";
+  const box = document.getElementById("chatbox");
+  box.style.display = box.style.display === "none" ? "block" : "none";
+}
+
+function appendMessage(role, text) {
+  const log = document.getElementById("chatLog");
+  const bubble = document.createElement("div");
+  bubble.className = role === "user" ? "user-bubble" : "bot-bubble";
+  bubble.innerText = (role === "user" ? "😎 " : "🤖 ") + text;
+  log.appendChild(bubble);
+  log.scrollTop = log.scrollHeight;
 }
 
 async function sendChat() {
-  const input = document.getElementById("userInput").value;
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  appendMessage("user", text);
+
   const res = await fetch("/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: input }),
+    body: JSON.stringify({ message: text }),
   });
   const data = await res.json();
-  const responseArea = document.getElementById("responseArea");
-  responseArea.innerHTML += `<div>😎 ${input}</div><div>🤖 ${data.reply}</div><br>`;
-  document.getElementById("userInput").value = "";
-  responseArea.scrollTop = responseArea.scrollHeight;
+
+  appendMessage("bot", data.reply);
+  input.value = "";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const input = document.getElementById("userInput");
-
-  input.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      sendChat();
-    }
+  document.getElementById("userInput").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") sendChat();
   });
 });

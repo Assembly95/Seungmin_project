@@ -9,11 +9,19 @@
     <h1>학교 홈페이지 챗봇</h1>
 
     <!-- 말풍선 버튼 -->
-    <div id="chatToggleBtn" onclick="toggleChat()"></div>
+    <div id="chatToggleBtn" onclick="toggleChat()">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/4712/4712033.png"
+        alt="챗봇"
+        style="width: 60px"
+      />
+    </div>
 
     <!-- 챗봇 창 -->
     <div id="chatbox">
-      <div id="responseArea"></div>
+      <!-- ✅ 대화 말풍선이 누적될 영역 -->
+      <div id="chatLog" style="height: 400px; overflow-y: auto; margin-bottom: 10px"></div>
+
       <div id="chatInputArea">
         <input id="userInput" placeholder="질문을 입력하세요" />
         <button onclick="sendChat()">보내기</button>
